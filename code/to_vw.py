@@ -4,22 +4,29 @@ Code to parse the tsv file, create features and output the txt file for VW
 Feel free to modify and improve directly in this file.
 """
 
+# Default files to use if no command line arguments
 tsv_file = '../data/train.tsv' # Source file (TSV)
 txt_file = '../data/train.txt' # File for VW (TXT)
 test = False
 
 from os.path import isfile
-from sys import exit
+import sys
 import csv
 from myparser import parse # see parser.py
 # Add other feature scripts here
 
 
+# Read command line
+if len(sys.argv) >= 3:
+	tsv_file = sys.argv[1]
+	txt_file = sys.argv[2]
+if len(sys.argv) == 4:
+	test = sys.argv[3] == 'test'
 
 # If file already exists, exit the script. This can be remove to force the execution.
 if isfile(txt_file):
-	print('The txt file already exitst. Task skipped.')
-	exit(1);
+	print('The txt file already exitst. Conversion skipped.')
+	sys.exit(1);
 
 with open(tsv_file,'r') as tsvin, open(txt_file,'w') as txtout:
 	tsvin.readline() # Skip header

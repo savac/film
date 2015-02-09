@@ -38,7 +38,7 @@ with open(tsv_file,'r') as tsvin, open(txt_file,'w') as txtout:
 		
 		
 		# Write label and tag
-		to_write += row[3] if test==False else '1'
+		to_write += str(int(row[3]) + 1) if test==False else '1'
 		to_write += " '" + row[0]
 		
 		# Parse

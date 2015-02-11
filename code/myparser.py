@@ -11,6 +11,7 @@ import nltk
 #nltk.download() # Remove when you have download the data (punkt model and stopwords corpus).
 
 stop_words = []
+stemmer = nltk.stem.porter.PorterStemmer();
 
 def parse(sentence):
 	sentence = sentence.replace('|','') # Remove conflicts with VW format
@@ -21,11 +22,16 @@ def parse(sentence):
 	
 	# Can use words from the list here
 		
+	new_tokens = []
+	
+	# Keep only stems
+	for token in tokens:
+		new_tokens.append(stemmer.stem(token))
+	
 	# Re-build the sentence
 	sentence = ''
-	for w in tokens:
-		if not w in stop_words:
-			sentence += w + ' '	
+	for w in new_tokens:
+		sentence += w + ' '	
 	sentence = sentence[:-1]
 	return sentence
 

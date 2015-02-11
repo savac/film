@@ -28,14 +28,15 @@ if isfile(txt_file):
 	print('The txt file already exitst. Conversion skipped.')
 	sys.exit(1);
 
+line_count = 0	
 with open(tsv_file,'r') as tsvin, open(txt_file,'w') as txtout:
 	tsvin.readline() # Skip header
 	tsvin = csv.reader(tsvin, delimiter='\t')
 	
 	for row in tsvin:
+		line_count += 1
 		to_write = ''
 		phrase = parse(row[2]) # clean and store the phrase
-		
 		
 		# Write label and tag
 		to_write += str(int(row[3]) + 1) if test==False else '1'
@@ -48,7 +49,7 @@ with open(tsv_file,'r') as tsvin, open(txt_file,'w') as txtout:
 		# Add features
 		# I wrote one inline but we can of course make call to other scripts here
 		to_write += ' |count word_count:'
-		to_write += str(1+phrase.count(' '))
+		to_write += str(1+row[2].count(' '))  # Length of the original phrase
 		
 		txtout.write(to_write + '\n')
-	
+print('\t%d lines parsed.'%line_count)

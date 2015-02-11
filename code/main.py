@@ -7,7 +7,7 @@ alpha = 0.295059
 beta = 1.51332
 l1 = 3.6036
 l2 = 1.53323
-vw_options = '-c -b 28 --ngram 5'
+vw_options = '-c -b 24 --ngram 5'
 vw_options_training = '--passes 10 --noconstant'
 
 tsv_file = '../data/train.tsv'

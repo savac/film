@@ -19,7 +19,7 @@ for line in txt_file:
 	new_line = ''
 	field = line[:-1].split(' ')
 	new_line = field[1]
-	cl = max(min(round(float(line[0])),4),0)
+	cl = int(max(min(round(float(line[0]))-1,4),0))
 	new_line += ','+str(cl)
 	submission_file.write(new_line + '\n')
 	

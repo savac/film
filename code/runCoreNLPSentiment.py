@@ -142,8 +142,8 @@ with open(fileinpath,'r') as filein:
             if total>1:
                 for s in eolSymbs:
                     phrase = phrase.replace(s,' ')
-                #put back ellipses
-                phrase = phrase.replace('<ellipses>','...')
+            #put back ellipses
+            phrase = phrase.replace('<ellipses>','...')
 
             probas,sentiment,errormsg = corenlp.processLine(phrase,i,phraseid) 
 

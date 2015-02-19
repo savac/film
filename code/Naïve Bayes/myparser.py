@@ -7,34 +7,41 @@ Feel free to modify and improve directly on this file.
 
 import nltk
 
-#nltk.set_proxy('http://proxy.example.com:3128', ('USERNAME', 'PASSWORD')) #if you use a proxy
-#nltk.download() # Remove when you have download the data (punkt and maxent_treebank_pos_tagger models).
+#nltk.download('punkt')
+#nltk.download('maxent_treebank_pos_tagger')
 
 stemmer = nltk.stem.porter.PorterStemmer();
 
+""" Parse a sentence
+    return a list of tokens
+"""				
 def parse(sentence):
-	sentence = sentence.replace('|','¤') # Remove conflicts with VW format
-	sentence = sentence.replace(':','¤¤') # Remove conflicts with VW format
-	#sentence = sentence.lower() # Convert all to lower-case
-	
+	#sentence = sentence.replace('|','') # Remove conflicts with VW format
+	#sentence = sentence.replace(':','&') # Remove conflicts with VW format
+
+	sentence = sentence.lower()
 	tokens = nltk.word_tokenize(sentence) # Transform the sentence into a list of tokens
 	#pos = nltk.pos_tag(sentence)
-	
+#	return tokens
 	# Can use words from the list here
 	new_tokens = []
 	
 	# Keep only stems
 	for token in tokens:
-		new_tokens.append(stemmer.stem(token))
+		tmp = token if token.isupper() else token.lower()
+#		tmp = token.lower()
+		new_tokens.append(stemmer.stem(tmp)) #  + '\\' + pos(token))
+	return new_tokens
 	
+
+def to_sentence(l):
 	# Re-build the sentence
 	sentence = ''
-	for w in new_tokens:
-		sentence += (w if w.isupper() else w.lower()) + ' '	
+	for w in l:
+		sentence += w + ' '	
 	sentence = sentence[:-1]
 	return sentence
-
-
+	
 def parse_and_tag(sentence):
 	sentence = sentence.replace('|','') # Remove conflicts with VW format
 	sentence = sentence.replace(':','&') # Remove conflicts with VW format

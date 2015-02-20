@@ -18,13 +18,10 @@ def parse(sentence):
 	sentence = sentence.lower() # Convert all to lower-case
 	
 	tokens = nltk.word_tokenize(sentence) # Transform the sentence into a list of tokens
-<<<<<<< HEAD
 	pos = nltk.pos_tag(sentence)
-=======
 	
 	# Can use words from the list here
 		
->>>>>>> origin/master
 	new_tokens = []
 	
 	# Keep only stems
@@ -52,14 +49,24 @@ def parse_and_tag(sentence):
 	# Re-build the sentence
 	sentence = ''
 	for w in tokens:
-		if not w in stop_words:
-			sentence += w + ' '	
+		sentence += w + ' '	
 	sentence = sentence[:-1]
 	
 	# Stick tokens and pos-tags together
 	pos = ''
 	for t in tags:
-		pos += t[0] + '_' + t[1] + ' '
+		if t[1]!=':':
+			pos += t[0] + '_' + t[1] + ' '
 	pos = pos[:-1]
 
 	return (sentence, pos)
+
+def parse_simple(sentence):
+	sentence = sentence.replace('|','') # Remove conflicts with VW format
+	sentence = sentence.replace(':','&') # Remove conflicts with VW format
+	sentence = sentence.lower() # Convert all to lower-case
+	
+	tokens = nltk.word_tokenize(sentence) # Transform the sentence into a list of tokens
+
+	return tokens
+
